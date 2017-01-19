@@ -31,6 +31,9 @@ if oAuthKey:
 else:
     restApi = RallyRestApi(URI(rallyUrl), credentials['username'], credentials['password'])
 
+if rallyServer['proxyHost']:
+    restApi.setProxy(URI("http://%s:%s" % (rallyServer['proxyHost'], rallyServer['proxyPort'])))
+    
 workspaceRef = rallyClient.lookup_workspace_id_by_workspace_name(restApi, workspace)
 
 storyRef = rallyClient.lookup_user_story_by_formatted_id(restApi, "HierarchicalRequirement", userStoryFormattedId, workspaceRef)
